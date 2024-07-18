@@ -18,18 +18,20 @@ class TransactionController extends Controller
 
     public function getData()
     {
-        $transaction = Transaction::all();
+        $transaction = Transaction::orderBy('created_at', 'desc')->get();
 
         return DataTables::of($transaction)->make(true);
     }
 
-    public function detailTransaction($id){
+    public function detailTransaction($id)
+    {
         $transaction = Transaction::where('id', $id)->with(['transactionDetails'])->first();
 
         return view('pages.transaction.detail', compact('transaction'));
     }
 
-    public function paidTransaction($id){
+    public function paidTransaction($id)
+    {
         $transaction = Transaction::find($id);
         $transaction->status = 'PAID';
         $transaction->save();
@@ -37,7 +39,8 @@ class TransactionController extends Controller
         return redirect()->route('transaction.index')->with('success', 'Transaction status has been updated to paid');
     }
 
-    public function arriveTransaction($id){
+    public function arriveTransaction($id)
+    {
         $transaction = TransactionDetail::findOrFail($id);
 
         $transaction->arrive = true;

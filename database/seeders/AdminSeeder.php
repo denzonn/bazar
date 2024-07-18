@@ -18,6 +18,12 @@ class AdminSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123'),
             'roles' => 'ADMIN'
-        ]);
+        ] );
+        DB::table('users')->insert([
+            'name' => 'Admin2',
+            'email' => 'admin2@gmail.com',
+            'password' => bcrypt('123'),
+            'roles' => 'ADMIN'
+        ] );
     }
 }
