@@ -17,7 +17,7 @@
         <div class="px-4 mt-4 md:px-40">
             <div class="md:grid md:grid-cols-3">
                 @forelse ($cart as $item)
-                <div class="bg-white py-4 rounded-xl flex flex-row gap-2 items-center justify-between px-2 mb-2">
+                <div id="cart-item-{{ $item->id }}" class="bg-white py-4 rounded-xl flex flex-row gap-2 items-center justify-between px-2 mb-2">
                     <div class="w-2/12">
                         <img src="{{ Storage::url($item->product->photo) }}" alt=""
                             class="w-full h-32 object-cover scale-x-110">
@@ -68,7 +68,7 @@
                     </select>
                 </div>
                 <button class="w-full bg-primary text-white px-4 py-2 rounded-md mt-4 block text-center"
-                    type="submit" {{ $cart ? '' : 'disabled' }} >Checkout</button>
+                    type="submit" {{ $cart->isNotEmpty() ? '' : 'disabled' }} >Checkout</button>
             </form>
         </div>
     </div>
@@ -88,6 +88,8 @@
             if (currentValue > 1) {
                 let newItemQuantity = currentValue - 1;
                 updateCartItemQuantity(itemId, newItemQuantity);
+            } else {
+                removeCartItem(itemId);
             }
         }
 
@@ -106,6 +108,27 @@
                 .then(data => {
                     // Update input field value
                     document.getElementById('quantity_' + itemId).value = data.quantity;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function removeCartItem(itemId) {
+            fetch(`/remove-cart-item/${itemId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Remove item from the DOM
+                        document.getElementById('cart-item-' + itemId).remove();
+                    } else {
+                        console.error('Error removing item from cart');
+                    }
                 })
                 .catch(error => {
                     console.error('Error:', error);

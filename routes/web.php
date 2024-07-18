@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/add/{id}', [BerandaController::class, 'addToCart'])->name('addToCart');
 
     Route::put('/update-cart-item/{itemId}', [BerandaController::class, 'updateCartItem'])->name('update.cart.item');
+    Route::delete('/remove-cart-item/{id}', [BerandaController::class, 'removeCartItem'])->name('cart.remove');
 
     Route::post('checkout', [BerandaController::class, 'checkout'])->name('checkout');
 });

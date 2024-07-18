@@ -70,7 +70,7 @@ class BerandaController extends Controller
             'table' => $request->input('table'),
         ]);
 
-        foreach($cart as $item) {
+        foreach ($cart as $item) {
             TransactionDetail::create([
                 'transaction_id' => $transaction->id,
                 'product_id' => $item->product_id,
@@ -81,5 +81,16 @@ class BerandaController extends Controller
         Cart::where('user_id', Auth::user()->id)->delete();
 
         return redirect()->route('product')->with('toast_success', 'Transaksi berhasil dilakukan. Silahkan tunggu pesanan anda.');
+    }
+
+    public function removeCartItem($id)
+    {
+        $cartItem = Cart::find($id);
+        if ($cartItem) {
+            $cartItem->delete();
+            return response()->json(['message' => 'Item removed successfully']);
+        } else {
+            return response()->json(['message' => 'Item not found'], 404);
+        }
     }
 }
