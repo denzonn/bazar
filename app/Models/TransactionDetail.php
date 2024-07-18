@@ -15,11 +15,13 @@ class TransactionDetail extends Model
         'quantity',
     ];
 
-    public function transaction(){
+    public function transaction()
+    {
         return $this->belongsTo(Transaction::class);
     }
 
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
 }
