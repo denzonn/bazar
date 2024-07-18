@@ -67,6 +67,8 @@
                                 return '<span class="bg-green-500 text-white px-3 py-1 rounded-md">' + data + '</span>';
                             } else if (data === 'CANCEL') {
                                 return '<span class="bg-gray-500 text-white px-3 py-1 rounded-md">' + data + '</span>';
+                            } else if (data === 'SUDAH LENGKAP') {
+                                return '<span class="bg-yellow-500 text-white px-3 py-1 rounded-md">' + data + '</span>';
                             } else {
                                 return data; // Default, jika status tidak dikenali
                             }

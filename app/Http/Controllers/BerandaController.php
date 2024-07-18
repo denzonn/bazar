@@ -30,6 +30,8 @@ class BerandaController extends Controller
     {
         $product = Product::find($id);
 
+        $cart = Cart::where('user_id', Auth::user()->id)->get();
+
         Cart::create([
             'product_id' => $product->id,
             'quantity' => 1,

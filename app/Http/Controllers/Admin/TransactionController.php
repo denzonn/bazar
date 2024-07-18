@@ -18,10 +18,17 @@ class TransactionController extends Controller
 
     public function getData()
     {
-        $transaction = Transaction::orderBy('created_at', 'desc')->get();
+        $transactions = Transaction::with('transactionDetails')->orderBy('created_at', 'desc')->get();
 
-        return DataTables::of($transaction)->make(true);
+        $transactions->each(function ($transaction) {
+            if ($transaction->isComplete()) {
+                $transaction->status = 'SUDAH LENGKAP';
+            }
+        });
+
+        return DataTables::of($transactions)->make(true);
     }
+
 
     public function detailTransaction($id)
     {

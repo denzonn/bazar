@@ -14,4 +14,8 @@ class Transaction extends Model
     public function transactionDetails(){
         return $this->hasMany(TransactionDetail::class);
     }
+
+    public function isComplete(){
+        return $this->transactionDetails()->where('arrive', false)->count() === 0;
+    }
 }
