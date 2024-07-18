@@ -44,6 +44,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::resource('transaction', TransactionController::class);
 
     Route::get('transaction/detail/{id}', [TransactionController::class, 'detailTransaction'])->name('detailTransaction');
+    Route::post('transaction/detail/arrive/{id}', [TransactionController::class, 'arriveTransaction'])->name('arriveTransaction');
     Route::get('transaction/detail/paid/{id}', [TransactionController::class, 'paidTransaction'])->name('paidTransaction');
 
     Route::get('get-category', [CategoryController::class, 'getData'])->name('categoryData');

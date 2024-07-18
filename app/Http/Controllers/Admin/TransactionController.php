@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -34,5 +35,15 @@ class TransactionController extends Controller
         $transaction->save();
 
         return redirect()->route('transaction.index')->with('success', 'Transaction status has been updated to paid');
+    }
+
+    public function arriveTransaction($id){
+        $transaction = TransactionDetail::findOrFail($id);
+
+        $transaction->arrive = true;
+
+        $transaction->save();
+
+        return redirect()->route('transaction.index')->with('success', 'Product arrived at costumer');
     }
 }

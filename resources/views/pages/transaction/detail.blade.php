@@ -32,12 +32,12 @@
 
             <div class="text-xl mt-3">Detail Pesanan :</div>
             @foreach ($transaction->transactionDetails as $item)
-                <div class="bg-white py-4 rounded-xl flex flex-row gap-2 items-center justify-between px-2 mb-2 w-6/12">
+                <div class="bg-white py-4 rounded-xl flex flex-row gap-2 items-center justify-between px-2 mb-2 w-8/12">
                     <div class="w-2/12">
                         <img src="{{ Storage::url($item->product->photo) }}" alt=""
                             class="w-full h-32 object-cover scale-x-110">
                     </div>
-                    <div class="w-8/12">
+                    <div class="w-6/12">
                         <div class="font-semibold text-xl mt-2">
                             {{ $item->product->name }}
                         </div>
@@ -46,6 +46,17 @@
                     <div class="w-2/12 flex items-center justify-center">
                         Quantity : {{ $item->quantity }}
                     </div>
+                    @if ($item->arrive === 0)
+                    <form action="{{ route('arriveTransaction', $item->id) }}" method="POST">
+                        @csrf
+                        <div class="w-2/12">
+                            <button class="text-white bg-primary px-2 py-1 rounded-md text-xl "><i
+                                    class="fa-solid fa-square-check"></i></button>
+                        </div>
+                    </form>
+                    @else
+                        <div class="text-green-500 font-semibold">Telah Diantar</div>
+                    @endif
                 </div>
             @endforeach
         </div>
