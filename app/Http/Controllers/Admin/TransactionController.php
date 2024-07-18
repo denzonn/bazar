@@ -21,14 +21,13 @@ class TransactionController extends Controller
         $transactions = Transaction::with('transactionDetails')->orderBy('created_at', 'desc')->get();
 
         $transactions->each(function ($transaction) {
-            if ($transaction->isComplete()) {
+            if ($transaction->status !== 'PAID' && $transaction->status !== 'CANCEL' && $transaction->isComplete()) {
                 $transaction->status = 'SUDAH LENGKAP';
             }
         });
 
         return DataTables::of($transactions)->make(true);
     }
-
 
     public function detailTransaction($id)
     {
