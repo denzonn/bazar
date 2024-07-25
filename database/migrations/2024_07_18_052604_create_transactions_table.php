@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('total');
-            $table->enum('status', ['PROSES', 'PAID', 'CANCEL']);
-            $table->string('table');
+            $table->enum('status', ['Proses', 'Paid', 'Cancel', 'Complete']);
+            $table->string('code')->unique();
+            $table->string('payment_method')->nullable();
             $table->timestamps();
         });
     }

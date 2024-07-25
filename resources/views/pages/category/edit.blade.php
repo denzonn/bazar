@@ -21,8 +21,8 @@
             @method('PUT')
             <div class="grid grid-cols-2 gap-6">
                 <div class="flex flex-col gap-2">
-                    <label for="">Nama Category</label>
-                    <input type="text" placeholder="Masukkan Nama Category" name="name"
+                    <label for="">Category Name</label>
+                    <input type="text" placeholder="Enter the Category Name" name="name"
                         class="w-full border px-4 py-2 rounded-md bg-transparent" value="{{ $data->name }}" required />
                 </div>
                 <button type="submit" class="w-full rounded-md bg-primary mt-8 text-white py-2 text-lg">Update

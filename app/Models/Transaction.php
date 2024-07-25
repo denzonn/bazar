@@ -9,7 +9,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'total', 'status', 'table'];
+    protected $fillable = ['name', 'total', 'status', 'payment_method', 'code'];
 
     public function transactionDetails(){
         return $this->hasMany(TransactionDetail::class);

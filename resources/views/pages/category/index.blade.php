@@ -17,7 +17,7 @@
             </div>
             <div class="w-full flex justify-end">
                 <a href="{{ route('category.create') }}" class="px-6 py-2 bg-primary rounded-md text-white justify-end">
-                    Tambah Category
+                    Add Category
                 </a>
             </div>
         </div>
@@ -30,7 +30,7 @@
                             No</th>
                         <th scope="col"
                             class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-6/12">
-                            Nama Category</th>
+                            Category Name</th>
                         <th scope="col"
                             class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Action
@@ -87,7 +87,7 @@
 
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "Apakah kamu ingin menghapus Category?",
+                    text: "Do you want to delete Category?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

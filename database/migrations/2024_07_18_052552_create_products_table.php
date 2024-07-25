@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('price');
             $table->string('photo');
+            $table->enum('status', ['Ready', 'Sold'])->default('Ready');
             $table->timestamps();
         });
     }

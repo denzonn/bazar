@@ -26,7 +26,7 @@
     </div>
 
     <div class="block md:hidden fixed top-0 left-0 w-full h-16 z-50">
-        <div class="bg-white w-full h-full px-4 py-2">
+        <div class="bg-white w-full h-full px-4 py-2 shadow-sm">
             @include('includes.navbar')
         </div>
     </div>
@@ -38,6 +38,28 @@
     @stack('prepend-script')
     @include('includes.script')
     @stack('addon-script')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            @if(session('toast_success'))
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: '{{ session('toast_success') }}',
+                    showConfirmButton: false,
+                    timer: 1500,  // 1 second
+                    timerProgressBar: false,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+            @endif
+        });
+    </script>
 
     @include('sweetalert::alert')
 </body>

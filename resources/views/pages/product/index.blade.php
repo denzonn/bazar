@@ -17,7 +17,7 @@
             </div>
             <div class="w-full flex justify-end">
                 <a href="{{ route('product.create') }}" class="px-6 py-2 bg-primary rounded-md text-white justify-end">
-                    Tambah Product
+                    Add Product
                 </a>
             </div>
         </div>
@@ -33,13 +33,13 @@
                             Photo</th>
                         <th scope="col"
                             class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-3/12">
-                            Nama Product</th>
+                            Product Name</th>
                         <th scope="col"
                             class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">
                             Category</th>
                         <th scope="col"
                             class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">
-                            Harga</th>
+                            Price</th>
                         <th scope="col"
                             class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Action
@@ -81,7 +81,10 @@
                     },
                     {
                         data: 'price',
-                        name: 'price'
+                        name: 'price',
+                        render: function(data, type, row, meta) {
+                            return 'Rp. ' + data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                        }
                     },
                     {
                         data: 'id',
@@ -114,7 +117,7 @@
 
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "Apakah kamu ingin menghapus Product?",
+                    text: "Do you want to delete Product?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

@@ -6,11 +6,11 @@
         </a>
         <a href="/admin/category"
             class="{{ request()->is('admin/category') ? 'bg-primary text-white' : '' }} py-2 px-6 rounded-md  hover:bg-primary hover:text-white transition">
-            <div class="flex flex-row gap-2 items-center"><i class="fa-solid fa-bacteria"></i> Category</div>
+            <div class="flex flex-row gap-2 items-center"><i class="fa-solid fa-clipboard-list"></i> Category</div>
         </a>
         <a href="/admin/product"
             class="{{ request()->is('admin/product*') ? 'bg-primary text-white' : '' }} py-2 px-6 rounded-md  hover:bg-primary hover:text-white transition">
-            <div class="flex flex-row gap-2 items-center"><i class="fa-solid fa-disease"></i>Product</div>
+            <div class="flex flex-row gap-2 items-center"><i class="fa-solid fa-mug-saucer"></i>Product</div>
         </a>
         <a href="/admin/transaction"
             class="{{ request()->is('admin/transaction*') ? 'bg-primary text-white' : '' }} py-2 px-6 rounded-md  hover:bg-primary hover:text-white transition">

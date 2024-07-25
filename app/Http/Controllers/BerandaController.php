@@ -32,13 +32,20 @@ class BerandaController extends Controller
 
         $cart = Cart::where('user_id', Auth::user()->id)->get();
 
-        Cart::create([
-            'product_id' => $product->id,
-            'quantity' => 1,
-            'user_id' => Auth::user()->id,
-        ]);
+        if ($cart->where('product_id', $product->id)->count() > 0) {
+            $cartItem = $cart->where('product_id', $product->id)->first();
+            $cartItem->quantity++;
+            $cartItem->save();
 
-        return redirect()->back()->with('success', 'Produk berhasil ditambahkan ke keranjang.');
+            return redirect()->back()->with('toast_success', 'Menu sudah ada di keranjang, berhasil menambahkan quantity.');
+        } else {
+            Cart::create([
+                'product_id' => $product->id,
+                'quantity' => 1,
+                'user_id' => Auth::user()->id,
+            ]);
+            return redirect()->back()->with('toast_success', 'Menu berhasil ditambahkan ke keranjang.');
+        }
     }
 
     public function updateCartItem($itemId)
@@ -60,6 +67,10 @@ class BerandaController extends Controller
     {
         $cart = Cart::where('user_id', Auth::user()->id)->with(['product'])->get();
 
+        $date = date('d');
+        $time = date('His');
+        $transactionCode = 'TRX' . $date . $time;
+
         $total = 0;
         foreach ($cart as $item) {
             $total += $item->product->price * $item->quantity;
@@ -69,7 +80,7 @@ class BerandaController extends Controller
             'name' => $request->input('name'),
             'total' => $total,
             'status' => 'PROSES',
-            'table' => $request->input('table'),
+            'code' => $transactionCode
         ]);
 
         foreach ($cart as $item) {

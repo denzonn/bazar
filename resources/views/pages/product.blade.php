@@ -1,30 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.user')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+@section('title')
+    Product
+@endsection
 
-    @include('includes.style')
-    @include('includes.script')
-</head>
-
-<body class="bg-[#F4F7FE]">
-    <div class="">
-        <div class="bg-primary px-4 py-3 text-white text-2xl text-end">
-            <a href="/cart" class="text-end"><i class="fa-solid fa-cart-shopping"></i></a>
+@section('content')
+    <div class="mt-4 w-full mb-20">
+        <div class="flex flex-row items-center gap-2 text-sm overflow-x-auto scrolling pl-9">
+            @foreach ($categories as $category)
+                <div onclick="setSelected('{{ $category->name }}')" class="category-button py-2 px-3 text-base rounded-xl shadow-md"
+                    data-category="{{ $category->name }}">
+                    {{ $category->name }}
+                </div>
+            @endforeach
         </div>
-        @foreach ($categories as $category)
-            <div class="p-6">
-                <div class="text-2xl font-semibold text-primary mb-4">{{ $category->name }}</div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="mt-4 px-9">
+            <div class="grid grid-cols-2 gap-x-2 gap-y-3">
+                @foreach ($categories as $category)
                     @foreach ($category->products as $item)
                         @php
                             $rating = mt_rand(450, 500) / 100;
                         @endphp
-                        <div class="bg-white px-1 py-4 rounded-xl h-fit relative">
+                        <div class="bg-white px-1 py-4 rounded-xl h-fit relative product-card" data-category="{{ $category->name }}">
                             <div class="absolute top-3 left-3">
                                 <i class="fa-solid fa-star text-yellow-400">
                                     <span class="text-xs text-gray-500">{{ $rating }}</span>
@@ -53,11 +50,39 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
+                @endforeach
             </div>
-        @endforeach
+        </div>
     </div>
-</body>
-@include('sweetalert::alert')
+@endsection
 
-</html>
+@push('addon-script')
+    <script>
+        function setSelected(category) {
+            const buttons = document.querySelectorAll('.category-button');
+            const products = document.querySelectorAll('.product-card');
+
+            buttons.forEach(button => {
+                if (button.getAttribute('data-category') === category) {
+                    button.classList.add('bg-primary', 'text-white');
+                    button.classList.remove('bg-white', 'text-gray-500');
+                } else {
+                    button.classList.add('bg-white', 'text-gray-500');
+                    button.classList.remove('bg-primary', 'text-white');
+                }
+            });
+
+            products.forEach(product => {
+                if (product.getAttribute('data-category') === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setSelected('Minuman'); // Default selection
+        });
+    </script>
+@endpush
